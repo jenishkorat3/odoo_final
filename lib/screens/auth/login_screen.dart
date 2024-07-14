@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Theme.of(context).primaryColor),
                               ),
                             ),
-                            Image.asset('assets/images/login.png'),
+                            Image.asset('assets/images/splash.png'),
                             TextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
