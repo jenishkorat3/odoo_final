@@ -1,13 +1,26 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:odoo_hackathon/screens/auth/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/shared/constants.dart';
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+     FlutterLocalNotificationsPlugin();
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundhandler);
+}
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundhandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print(message.notification!.title.toString());
 }
 
 class MyApp extends StatefulWidget {
@@ -47,7 +60,8 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       // home: RentItemScreen()
-      home: SplashScreen(loggedInStatus: isUserLoggedIn,),
+     // home: SplashScreen(loggedInStatus: isUserLoggedIn,),
+        home: HomeScreen(),
     );
   }
 }
