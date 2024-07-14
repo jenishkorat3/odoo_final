@@ -1,30 +1,21 @@
 import 'package:firebase_database/firebase_database.dart';
- import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:odoo_hackathon/services/notification_service.dart';
 
-class HomeScreen extends StatefulWidget {
+class NewArrivalBookAScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _NewArrivalBookAScreenState createState() => _NewArrivalBookAScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _NewArrivalBookAScreenState extends State<NewArrivalBookAScreen> {
   final DatabaseReference _booksRef =
       FirebaseDatabase.instance.ref().child('items');
   List<Map<String, dynamic>> _books = [];
   List<Map<String, dynamic>> _filteredBooks = [];
   TextEditingController _searchController = TextEditingController();
-  NotificationServices notificationServices = new NotificationServices();
 
   @override
   void initState() {
     super.initState();
-    notificationServices.notificationPermission();
-    notificationServices.firebaseInit();
-    notificationServices.isTokenRefresh();
-    notificationServices.getToken().then((value) {
-      print(value);
-    });
     _fetchBooks();
     _searchController.addListener(_filterBooks);
   }
@@ -34,34 +25,48 @@ class _HomeScreenState extends State<HomeScreen> {
       DataSnapshot snapshot = event.snapshot;
       List<Map<String, dynamic>> fetchedBooks = [];
       Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+      final DateTime now = DateTime.now();
+      final DateTime tenDaysAgo = now.subtract(Duration(days: 7));
+      
       values.forEach((key, value) {
-        fetchedBooks.add({
-          'id': key,
-          'isbn': value['isbn'] ?? '',
-          'title': value['title'] ?? '',
-          'authors': value['authors'] is List
-              ? (value['authors'] as List).join(', ')
-              : value['authors'] ?? '',
-          'publisher': value['publisher'] ?? '',
-          'publishedDate': value['publishedDate'] ?? '',
-          'description': value['description'] ?? '',
-          'pageCount': value['pageCount'] ?? 0,
-          'categories': value['categories'] is List
-              ? (value['categories'] as List).join(', ')
-              : value['categories'] ?? '',
-          'thumbnail': value['thumbnail'] ?? '',
-          'language': value['language'] ?? '',
-          'previewLink': value['previewLink'] ?? '',
-          'infoLink': value['infoLink'] ?? '',
-          'isIssued': value['isIssued'] ?? false,
-          'qty': value['qty'] ?? 0,
-          'totalIssuedQty': value['totalIssuedQty'] ?? 0,
-        });
+        try {
+          String publishedDateStr = value['publishedDate'];
+          DateTime publishedDate = DateTime.parse(publishedDateStr);
+
+          if (publishedDate.isAfter(tenDaysAgo)) {
+            fetchedBooks.add({
+              'id': key,
+              'isbn': value['isbn'] ?? '',
+              'title': value['title'] ?? '',
+              'authors': value['authors'] is List
+                  ? (value['authors'] as List).join(', ')
+                  : value['authors'] ?? '',
+              'publisher': value['publisher'] ?? '',
+              'publishedDate': publishedDateStr,
+              'description': value['description'] ?? '',
+              'pageCount': value['pageCount'] ?? 0,
+              'categories': value['categories'] is List
+                  ? (value['categories'] as List).join(', ')
+                  : value['categories'] ?? '',
+              'thumbnail': value['thumbnail'] ?? '',
+              'language': value['language'] ?? '',
+              'previewLink': value['previewLink'] ?? '',
+              'infoLink': value['infoLink'] ?? '',
+              'isIssued': value['isIssued'] ?? false,
+              'qty': value['qty'] ?? 0,
+              'totalIssuedQty': value['totalIssuedQty'] ?? 0,
+            });
+          }
+        } catch (e) {
+          print('Error parsing date for book $key: $e');
+        }
       });
       setState(() {
         _books = fetchedBooks;
         _filteredBooks = fetchedBooks;
       });
+    }).catchError((error) {
+      print('Error fetching books: $error');
     });
   }
 
@@ -80,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Explore Your Library'),
+        title: Text('New Arrivals'),
       ),
       body: Column(
         children: [
@@ -156,9 +161,10 @@ class BookList extends StatelessWidget {
                       onPressed: () {
                         // Implement checkout functionality
                       },
-                      child: Text('Checkout',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      child: Text(
+                        'Checkout',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         shape: RoundedRectangleBorder(
@@ -167,17 +173,20 @@ class BookList extends StatelessWidget {
                       ),
                     )
                   : ElevatedButton(
-                        onPressed: () {
-                          // Implement checkout functionality
-                        },
-                        child: Text('Not Available', style: TextStyle(color: Colors.white),),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+                      onPressed: () {
+                        // Implement checkout functionality
+                      },
+                      child: Text(
+                        'Not Available',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                      )
+                      ),
+                    ),
             ),
           ),
         );
