@@ -20,14 +20,14 @@ class AuthServices {
 
   //register
   Future signUpUserwithEmailandPAssword(
-      String fullName, String email, String password) async {
+      String fullName, String email, String password , String token) async {
     try {
       UserCredential user = await (_auth.createUserWithEmailAndPassword(
           email: email, password: password));
       if (user != null) {
         //call our database service to update the user data
         await DatabaseServices(uid: user.user!.uid)
-            .savingUserData(fullName, email);
+            .savingUserData(fullName, email , token);
         return true;
       }
     } on FirebaseAuthException catch (e) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:odoo_hackathon/screens/auth/bottombar_screen.dart';
 import 'package:odoo_hackathon/screens/auth/register_screen.dart';
-import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/services/auth_services.dart';
 import 'package:odoo_hackathon/widgets/widgets.dart';
 

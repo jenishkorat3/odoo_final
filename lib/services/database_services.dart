@@ -6,12 +6,13 @@ class DatabaseServices {
 
   final userCollectionRef = FirebaseFirestore.instance.collection('users');
 
-  Future savingUserData(String fullName, String email) async {
+  Future savingUserData(String fullName, String email , String token) async {
 
     return userCollectionRef.doc(uid).set({
       'name': fullName,
       'email': email,
-      'uid': uid
+      'uid': uid,
+      'token':token
     });
   }
 
