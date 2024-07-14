@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:odoo_hackathon/screens/auth/login_screen.dart';
+import 'package:odoo_hackathon/screens/explore_screen.dart';
+import 'package:odoo_hackathon/screens/profile_screen.dart';
+import 'package:odoo_hackathon/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                FirebaseAuth.instance.signOut().then((value) => {
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>LoginScreen()), (route) => false)
-                });
+                FirebaseAuth.instance.signOut().then((value) =>
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        (route) => false));
               },
-              icon: Icon(Icons.signpost_outlined))
+              icon: Icon(Icons.logout_sharp))
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:odoo_hackathon/screens/auth/bottombar_screen.dart';
 import 'package:odoo_hackathon/screens/auth/login_screen.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/services/auth_services.dart';
@@ -179,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           .then((value) async {
         if (value == true) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => BottomBarScreen()),
               (route) => false);
           setState(() {
             isloading = false;
