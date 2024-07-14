@@ -16,14 +16,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  String? userId = "uuyBQFeRm4aLJdwmd9p1w72Sj5A3";
-  String? userName = "jenish korat";
-  String? userEmail = "jenish@gmail.com";
+  String? userId = "";
+  String? userName = "";
+  String? userEmail = "";
 
   @override
   void initState() {
     super.initState();
-    // _fetchUserInfo();
+    _fetchUserInfo();
   }
 
   Future<void> _fetchUserInfo() async {
