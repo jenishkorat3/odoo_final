@@ -55,14 +55,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Create your account now to chat and explore',
+                                'Join our library community with just a few clicks.',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).primaryColor),
                               ),
                             ),
-                            Image.asset('assets/images/splash1.png'),
+                            Image.asset('assets/images/login.png'),
                             TextFormField(
                               controller: userNameController,
                               decoration: textInputDecoration.copyWith(

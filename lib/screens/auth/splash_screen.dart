@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Center(
             child: Text(
-              "Rent Today, Enjoy Tomorrow",
+              "Explore endless stories at your fingertips.",
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 18,

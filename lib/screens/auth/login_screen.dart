@@ -53,14 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Login now to see what they are talking!',
+                                'Unlock a world of books with your library account.',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).primaryColor),
                               ),
                             ),
-                            Image.asset('assets/images/splash.png'),
+                            Image.asset('assets/images/login.png'),
                             TextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,

@@ -4,7 +4,7 @@ import 'package:odoo_hackathon/screens/auth/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:odoo_hackathon/shared/constants.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   bool isUserLoggedIn = false;
   final auth = FirebaseAuth.instance;
 
@@ -47,9 +46,9 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       // home: RentItemScreen()
-      home: SplashScreen(loggedInStatus: isUserLoggedIn,),
+      home: SplashScreen(
+        loggedInStatus: isUserLoggedIn,
+      ),
     );
   }
 }
-
-
