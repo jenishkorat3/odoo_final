@@ -5,6 +5,7 @@ import 'package:odoo_hackathon/screens/auth/bottombar_screen.dart';
 import 'package:odoo_hackathon/screens/auth/login_screen.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/services/auth_services.dart';
+import 'package:odoo_hackathon/services/notification_service.dart';
 import 'package:odoo_hackathon/widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -20,6 +21,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final userNameController = TextEditingController();
   bool isloading = false;
+  String token = "";
+
+  NotificationServices notificationServices = new NotificationServices();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    notificationServices.notificationPermission();
+    notificationServices.firebaseInit();
+    notificationServices.isTokenRefresh();
+    notificationServices.getToken().then((value) {
+      print(value);
+      token = value;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       await AuthServices()
           .signUpUserwithEmailandPAssword(userNameController.text,
-              emailController.text.toLowerCase(), passwordController.text)
+              emailController.text.toLowerCase(), passwordController.text , token)
           .then((value) async {
         if (value == true) {
           Navigator.of(context).pushAndRemoveUntil(
