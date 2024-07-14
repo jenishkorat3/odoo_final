@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/shared/constants.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -56,7 +56,9 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       // home: RentItemScreen()
-      home: SplashScreen(loggedInStatus: isUserLoggedIn,),
+      home: SplashScreen(
+        loggedInStatus: isUserLoggedIn,
+      ),
     );
   }
 }
