@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:odoo_hackathon/screens/auth/bottombar_screen.dart';
 import 'package:odoo_hackathon/screens/auth/register_screen.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/services/auth_services.dart';
@@ -52,16 +53,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Login now to see what they are talking!',
+                                'Unlock a world of books with your library account.',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).primaryColor),
                               ),
                             ),
-                            Image.asset('assets/images/splash.png'),
+                            Image.asset('assets/images/login.png'),
                             TextFormField(
                               controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
                               decoration: textInputDecoration.copyWith(
                                   labelText: 'Email',
                                   prefixIcon: Icon(
@@ -158,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .then((value) async {
         if (value == true) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => BottomBarScreen()),
               (route) => false);
           setState(() {
             isloading = false;

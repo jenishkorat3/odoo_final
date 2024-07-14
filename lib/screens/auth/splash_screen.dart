@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:odoo_hackathon/screens/auth/bottombar_screen.dart';
 import 'package:odoo_hackathon/screens/auth/login_screen.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
 
@@ -19,13 +20,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (widget.loggedInStatus) {
       Timer(Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => BottomBarScreen()), (route) => false);
       });
     } else {
       Timer(Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreen()));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false);
       });
     }
   }
@@ -48,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Center(
             child: Text(
-              "Rent Today, Enjoy Tomorrow",
+              "Explore endless stories at your fingertips.",
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 18,

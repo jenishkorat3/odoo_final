@@ -7,9 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
 import 'package:odoo_hackathon/shared/constants.dart';
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-     FlutterLocalNotificationsPlugin();
-
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,7 +28,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   bool isUserLoggedIn = false;
   final auth = FirebaseAuth.instance;
 
@@ -60,10 +56,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       // home: RentItemScreen()
-     // home: SplashScreen(loggedInStatus: isUserLoggedIn,),
-        home: HomeScreen(),
+      home: SplashScreen(loggedInStatus: isUserLoggedIn,),
     );
   }
 }
-
-
