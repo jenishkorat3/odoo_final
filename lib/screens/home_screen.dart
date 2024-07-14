@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:odoo_hackathon/screens/book_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,8 +8,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final DatabaseReference _booksRef =
-      FirebaseDatabase.instance.ref().child('items');
+  final DatabaseReference _booksRef = FirebaseDatabase.instance.ref().child('items');
   List<Map<String, dynamic>> _books = [];
   List<Map<String, dynamic>> _filteredBooks = [];
   TextEditingController _searchController = TextEditingController();
@@ -30,16 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
           'id': key,
           'isbn': value['isbn'] ?? '',
           'title': value['title'] ?? '',
-          'authors': value['authors'] is List
-              ? (value['authors'] as List).join(', ')
-              : value['authors'] ?? '',
+          'authors': value['authors'] is List ? (value['authors'] as List).join(', ') : value['authors'] ?? '',
           'publisher': value['publisher'] ?? '',
           'publishedDate': value['publishedDate'] ?? '',
           'description': value['description'] ?? '',
           'pageCount': value['pageCount'] ?? 0,
-          'categories': value['categories'] is List
-              ? (value['categories'] as List).join(', ')
-              : value['categories'] ?? '',
+          'categories': value['categories'] is List ? (value['categories'] as List).join(', ') : value['categories'] ?? '',
           'thumbnail': value['thumbnail'] ?? '',
           'language': value['language'] ?? '',
           'previewLink': value['previewLink'] ?? '',
@@ -60,9 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String query = _searchController.text.toLowerCase();
     setState(() {
       _filteredBooks = _books.where((book) {
-        return book['title'].toLowerCase().contains(query) ||
-            book['authors'].toLowerCase().contains(query) ||
-            book['categories'].toLowerCase().contains(query);
+        return book['title'].toLowerCase().contains(query) || book['authors'].toLowerCase().contains(query) || book['categories'].toLowerCase().contains(query);
       }).toList();
     });
   }
@@ -92,9 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Expanded(
-            child: _filteredBooks.isEmpty
-                ? Center(child: CircularProgressIndicator())
-                : BookList(books: _filteredBooks),
+            child: _filteredBooks.isEmpty ? Center(child: CircularProgressIndicator()) : BookList(books: _filteredBooks),
           ),
         ],
       ),
@@ -117,7 +109,7 @@ class BookList extends StatelessWidget {
 
         return InkWell(
           onTap: () {
-            // Navigate to book details screen or expand details
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailScreen(book: books[index])));
           },
           child: Card(
             margin: EdgeInsets.all(8.0),
@@ -126,50 +118,53 @@ class BookList extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: ListTile(
-              leading: book['thumbnail'].isNotEmpty
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        book['thumbnail'],
-                        width: 80,
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : Placeholder(fallbackWidth: 80, fallbackHeight: 120),
-              title: Text(
-                book['title'],
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(book['authors']),
-              trailing: isAvailable
-                  ? ElevatedButton(
-                      onPressed: () {
-                        // Implement checkout functionality
-                      },
-                      child: Text('Checkout',
-                          style: TextStyle(color: Colors.white),
+                leading: book['thumbnail'].isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          book['thumbnail'],
+                          width: 80,
+                          height: 120,
+                          fit: BoxFit.cover,
                         ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    )
-                  : ElevatedButton(
+                      )
+                    : Placeholder(fallbackWidth: 80, fallbackHeight: 120),
+                title: Text(
+                  book['title'],
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(book['authors']),
+                trailing: isAvailable
+                    ? ElevatedButton(
                         onPressed: () {
                           // Implement checkout functionality
                         },
-                        child: Text('Not Available', style: TextStyle(color: Colors.white),),
+                        child: Text(
+                          'Checkout',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      )
+                    : ElevatedButton(
+                        onPressed: () {
+                          // Implement checkout functionality
+                        },
+                        child: Text(
+                          'Not Available',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      )
-            ),
+                      )),
           ),
         );
       },
