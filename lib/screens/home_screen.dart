@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:odoo_hackathon/screens/book_detail_screen.dart';
 
@@ -12,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> _books = [];
   List<Map<String, dynamic>> _filteredBooks = [];
   TextEditingController _searchController = TextEditingController();
+  NotificationServices notificationServices = new NotificationServices();
 
   @override
   void initState() {
