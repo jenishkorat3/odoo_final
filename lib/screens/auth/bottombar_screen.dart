@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:odoo_hackathon/screens/explore_screen.dart';
 import 'package:odoo_hackathon/screens/home_screen.dart';
+import 'package:odoo_hackathon/screens/new_arrival_screen.dart';
 import 'package:odoo_hackathon/screens/profile_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   final List<Widget> _children = [
     HomeScreen(),
-    ExploreScreen(),
+    NewArrivalBookAScreen(),
     ProfileScreen(),
   ];
 
