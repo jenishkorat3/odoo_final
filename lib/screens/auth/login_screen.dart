@@ -29,8 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
             : Center(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 80),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
                     child: Form(
                         key: formKey,
                         child: Column(
@@ -41,10 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 'Login',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor),
+                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
                               ),
                             ),
                             SizedBox(
@@ -54,13 +50,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 'Login now to see what they are talking!',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Theme.of(context).primaryColor),
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Theme.of(context).primaryColor),
                               ),
                             ),
-                            Image.asset('assets/images/splash.png'),
+                            Image.asset('assets/images/login.png'),
                             TextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -71,11 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Theme.of(context).primaryColor,
                                   )),
                               validator: (val) {
-                                return RegExp(
-                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                        .hasMatch(val!)
-                                    ? null
-                                    : 'Please enter a valid email';
+                                return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val!) ? null : 'Please enter a valid email';
                               },
                             ),
                             SizedBox(
@@ -110,16 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: Text(
                                   'LogIn',
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.white),
+                                  style: TextStyle(fontSize: 16, color: Colors.white),
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    elevation: 00),
+                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)), backgroundColor: Theme.of(context).primaryColor, elevation: 00),
                               ),
                             ),
                             Row(
@@ -127,8 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 Text(
                                   "Don't Have an Account?",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 14),
+                                  style: TextStyle(color: Colors.black, fontSize: 14),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -154,14 +135,9 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         isloading = true;
       });
-      await AuthServices()
-          .loginUserwithEmailandPAssword(
-              emailController.text.toLowerCase(), passwordController.text)
-          .then((value) async {
+      await AuthServices().loginUserwithEmailandPAssword(emailController.text.toLowerCase(), passwordController.text).then((value) async {
         if (value == true) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => BottomBarScreen()),
-              (route) => false);
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => BottomBarScreen()), (route) => false);
           setState(() {
             isloading = false;
             emailController.clear();

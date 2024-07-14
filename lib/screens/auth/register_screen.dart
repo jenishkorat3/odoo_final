@@ -62,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     color: Theme.of(context).primaryColor),
                               ),
                             ),
-                            Image.asset('assets/images/splash1.png'),
+                            Image.asset('assets/images/login.png'),
                             TextFormField(
                               controller: userNameController,
                               decoration: textInputDecoration.copyWith(
