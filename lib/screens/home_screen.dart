@@ -134,58 +134,56 @@ class BookList extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Center(
-              child: Container(
-                height: 100, // Fixed height for the book card
-                child: ListTile(
-                  leading: book['thumbnail'].isNotEmpty
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            book['thumbnail'],
-                            width: 80,
-                            height: 120,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : Placeholder(fallbackWidth: 80, fallbackHeight: 120),
-                  title: Text(
-                    book['title'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                  ),
-                  subtitle: Text(
-                    book['authors'],
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                  trailing: isAvailable
-                      ? ElevatedButton(
-                          onPressed: () {
-                            // Implement checkout functionality
-                          },
-                          child: Text('Checkout',
-                              style: TextStyle(color: Colors.white)),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                        )
-                      : ElevatedButton(
-                          onPressed: () {},
-                          child: Text('Not Available',
-                              style: TextStyle(color: Colors.white)),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
+            child: Container(
+              height: 100, // Fixed height for the book card
+              child: ListTile(
+                leading: book['thumbnail'].isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          book['thumbnail'],
+                          width: 80,
+                          height: 120,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Placeholder(fallbackWidth: 80, fallbackHeight: 120),
+                title: Text(
+                  book['title'],
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
+                subtitle: Text(
+                  book['authors'],
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                trailing: isAvailable
+                    ? ElevatedButton(
+                        onPressed: () {
+                          // Implement checkout functionality
+                        },
+                        child: Text('Checkout',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                ),
+                      )
+                    : ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Not Available',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
               ),
             ),
           ),
